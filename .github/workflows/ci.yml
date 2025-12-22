@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup OCaml
+      uses: ocaml/setup-ocaml@v2
+      with:
+        ocaml-compiler: 4.14.x
+        dune-cache: true
+    
+    - name: Install dependencies
+      run: |
+        opam install . --deps-only --with-test
+        opam install ocamlformat ocp-indent odoc
+    
+    - name: Build project
+      run: opam exec -- dune build
+    
+    - name: Run tests
+      run: |
+        chmod +x tests/run_tests.sh
+        opam exec -- bash tests/run_tests.sh
+    
+    - name: Check formatting (ocamlformat)
+      run: |
+        opam exec -- dune build @fmt
+    
+    - name: Build documentation
+      run: opam exec -- dune build @doc
+  
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup OCaml
+      uses: ocaml/setup-ocaml@v2
+      with:
+        ocaml-compiler: 4.14.x
+        dune-cache: true
+    
+    - name: Install linters
+      run: |
+        opam install ocp-indent ocamlformat
+    
+    - name: Check code formatting
+      run: |
+        opam exec -- dune build @fmt
+        if [ $? -ne 0 ]; then
+          echo "Code is not formatted. Run 'dune build @fmt --auto-promote' to fix."
+          exit 1
+        fi

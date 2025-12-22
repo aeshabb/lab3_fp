@@ -13,3 +13,17 @@ tests/examples/*.tmp
 *.swp
 *.swo
 *~
+
+# OCaml
+*.cmi
+*.cmo
+*.cmx
+*.cmt
+*.cmti
+*.o
+*.a
+*.so
+*.annot
+
+# Dune
+_opam/
