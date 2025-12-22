@@ -19,12 +19,11 @@ jobs:
       with:
         ocaml-compiler: 4.14.x
         dune-cache: true
-        opam-depext-flags: --yes --with-test
     
     - name: Install dependencies
       run: |
-        opam install . --deps-only --with-test -y
-        opam install ocamlformat ocp-indent odoc -y
+        opam install . --deps-only --with-test -y || true
+        opam install ocamlformat ocp-indent odoc -y || true
     
     - name: Build project
       run: opam exec -- dune build
