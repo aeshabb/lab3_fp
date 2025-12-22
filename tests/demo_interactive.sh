@@ -1,0 +1,23 @@
+#!/bin/bash
+
+echo "=== Демонстрация интерактивного режима ==="
+echo ""
+echo "ВАЖНО: После ввода точек нужно нажать Ctrl+D для завершения ввода"
+echo ""
+echo "Запуск: dune exec my_lab3 -- --linear --step 0.5"
+echo ""
+echo "Пример ввода (введите эти строки и затем Ctrl+D):"
+echo "0 0"
+echo "1 1"
+echo "2 4"
+echo ""
+echo "Ожидаемый вывод:"
+echo "linear: 0 0"
+echo "linear: 0.5 0.5"
+echo "linear: 1 1"
+echo "linear: 1.5 2.5"
+echo "linear: 2 4"
+echo ""
+echo "=== Автоматический запуск теста ==="
+echo ""
+echo -e "0 0\n1 1\n2 4" | dune exec my_lab3 -- --linear --step 0.5

@@ -1,0 +1,14 @@
+opam-version: "2.0"
+name: "interpolation"
+version: "0.1.0"
+synopsis: "Streaming interpolation program"
+maintainer: "student@itmo.ru"
+authors: ["ITMO Student"]
+license: "MIT"
+depends: [
+  "ocaml" {>= "4.14.0"}
+  "dune" {>= "3.7"}
+]
+build: [
+  ["dune" "build" "-p" name "-j" jobs]
+]

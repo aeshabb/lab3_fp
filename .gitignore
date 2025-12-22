@@ -1,0 +1,15 @@
+_build/
+*.install
+*.merlin
+.DS_Store
+
+# Временные файлы тестов
+tests/examples/*.txt.bak
+tests/examples/*.tmp
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
