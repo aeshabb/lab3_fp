@@ -1,9 +1,6 @@
 (* Модуль для работы с вводом/выводом данных *)
 
-type point = {
-  x : float;
-  y : float;
-}
+type point = { x : float; y : float }
 
 (* Разбор строки в формате CSV *)
 let parse_line line =
@@ -12,18 +9,14 @@ let parse_line line =
     if String.length line = 0 then None
     else
       (* Пытаемся разбить по различным разделителям *)
-      let parts = 
-        if String.contains line ';' then
-          String.split_on_char ';' line
-        else if String.contains line '\t' then
-          String.split_on_char '\t' line
-        else if String.contains line ',' then
-          String.split_on_char ',' line
-        else
-          String.split_on_char ' ' line
+      let parts =
+        if String.contains line ';' then String.split_on_char ';' line
+        else if String.contains line '\t' then String.split_on_char '\t' line
+        else if String.contains line ',' then String.split_on_char ',' line
+        else String.split_on_char ' ' line
       in
       match parts with
-      | [x_str; y_str] ->
+      | [ x_str; y_str ] ->
           let x = float_of_string (String.trim x_str) in
           let y = float_of_string (String.trim y_str) in
           Some { x; y }

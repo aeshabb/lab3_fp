@@ -22,23 +22,18 @@ jobs:
     
     - name: Install dependencies
       run: |
-        opam install . --deps-only --with-test -y || true
-        opam install ocamlformat ocp-indent odoc -y || true
+        opam install . --deps-only --with-test -y
     
     - name: Build project
       run: opam exec -- dune build
     
     - name: Run tests
-      run: |
-        chmod +x tests/run_tests.sh
-        opam exec -- bash tests/run_tests.sh
+      run: opam exec -- dune runtest
     
-    - name: Check formatting (ocamlformat)
+    - name: Check code formatting
       run: |
-        opam exec -- dune build @fmt || echo "Formatting check skipped (ocamlformat may not be installed)"
-    
-    - name: Build documentation
-      run: opam exec -- dune build @doc || echo "Documentation build skipped"
+        opam install ocamlformat.0.28.1 -y
+        opam exec -- dune build @fmt
   
   lint:
     runs-on: ubuntu-22.04  # Используем Ubuntu 22.04 вместо latest
