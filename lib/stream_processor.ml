@@ -117,8 +117,6 @@ let process_stream config input_seq =
   let step = config.Config.step in
   let window_size = config.Config.window_size in
   
-  (* Получаем базовую точку из первого элемента последовательности *)
-  (* Используем ref ТОЛЬКО для кеширования base_x при первом чтении *)
   (* Это единственное место где ref необходим для ленивой обработки *)
   let base_x_ref = ref None in
   let cached_seq = Seq.map (fun point ->
